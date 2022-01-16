@@ -1,7 +1,7 @@
 <template>
 <section class="banner bg-dark d-flex">
     <img class="vue-logo m-3" :src="image"/>
-    <h2 class="text-light mt-2">Vue Weather App V1</h2>
+    <h2 class="text-light mt-2">Vue Weather App V2</h2>
 </section>
 </template>
 

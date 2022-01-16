@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow h-auto mt-5">
+  <div class="shadow h-auto">
     <div class="card-body d-flex">
       <div class="d-flex flex-column">
         <h2 class="card-title px-2">
@@ -22,15 +22,14 @@
         <div class="d-flex">
           <img :src="imgs.wind" class="mx-2 pb-3" />
           <p>
-            Wind speed: {{ weatherData.Wind.Speed.Metric.Value }}
-            {{ weatherData.Wind.Direction.Localized }} ({{
-              weatherData.Wind.Direction.Degrees
-            }}°)
+            Wind speed: {{ weatherData.Wind.Speed.Metric.Value }} km/h
           </p>
         </div>
         <div class="d-flex">
           <img :src="imgs.arrow" class="mx-2 pb-3 arrow" />
-          <p>Direction: {{ weatherData.Wind.Direction.Localized }}</p>
+          <p>Direction: {{ weatherData.Wind.Direction.Localized }} ({{
+              weatherData.Wind.Direction.Degrees
+            }}°)</p>
         </div>
         <div class="d-flex">
           <img :src="imgs.eye" class="mx-2 pb-3" />
@@ -47,10 +46,12 @@ import wind from "../assets/svg/wind.svg";
 import eye from "../assets/svg/eye.svg";
 import arrow from "../assets/svg/arrow-up-circle.svg";
 import weatherIcons from "../data/weatherIcons";
+
+
+
 export default {
   data() {
     return {
-      time: new Date(),
       imgs: {
         temp: temp,
         wind: wind,
@@ -70,17 +71,6 @@ export default {
       required: true,
     },
   },
-  // computed: {
-  //   cssProps() {
-  //     return {
-  //       '--rotation': this.weatherData.Wind.Direction
-  //     }
-  //   }
-  // },
+
 };
 </script>
-<style scoped>
-.arrow {
-  rotate: var(--rotation)
-}
-</style>
