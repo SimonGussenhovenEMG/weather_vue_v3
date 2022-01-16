@@ -11,7 +11,6 @@
         </h5>
       </div>
       <div class="col-3">
-       <!--some space for the weather icon -->
       </div>
     </div>
     <div class="card-body d-flex">
@@ -30,7 +29,7 @@
           </p>
         </div>
         <div class="d-flex">
-          <img :src="imgs.arrow" class="mx-2 pb-3" />
+          <img :src="imgs.arrow" class="mx-2 pb-3 arrow" />
           <p>Direction: {{ weatherData.Wind.Direction.Localized }}</p>
         </div>
         <div class="d-flex">
@@ -48,7 +47,6 @@ import wind from "../assets/svg/wind.svg";
 import eye from "../assets/svg/eye.svg";
 import arrow from "../assets/svg/arrow-up-circle.svg";
 import weatherIcons from "../data/weatherIcons";
-console.log(weatherIcons);
 export default {
   data() {
     return {
@@ -72,5 +70,17 @@ export default {
       required: true,
     },
   },
+  // computed: {
+  //   cssProps() {
+  //     return {
+  //       '--rotation': this.weatherData.Wind.Direction
+  //     }
+  //   }
+  // },
 };
 </script>
+<style scoped>
+.arrow {
+  rotate: var(--rotation)
+}
+</style>
