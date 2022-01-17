@@ -1,17 +1,21 @@
 <template>
   <div class="d-flex flex-column vh-75">
     <nav>
-      <Header />
+       <Header />
+      <span class="sr-only">Loading...</span>
     </nav>
     <main>
       <section class="container my-auto h-100 justify-content-center d-flex">
         <div>
           <Loading v-if="isLoading" />
           <div v-else class="d-flex flex-column mt-5">
-            <SearchBar :cityKey="cityKey" v-on:update-city-key="updateCityKey"/>
-            <WeatherCard class="col-12"
+            <SearchBar
+              :cityName="cityName"
+              v-on:update-city-name="updateCityName"
+            />
+            <WeatherCard
+              class="col-12"
               :weatherData="weatherData"
-              :locationData="locationData"
             />
           </div>
         </div>
@@ -24,15 +28,17 @@
 import Header from "./components/Header";
 import WeatherCard from "./components/WeatherCard";
 import Loading from "./components/Loading";
-import { getWeatherData, getLocationData } from "./shared/api.js";
+import { getWeatherData } from "./shared/api.js";
 import SearchBar from "./components/SearchBar";
 
 export default {
   name: "App",
   components: {
     Header,
+    // eslint-disable-next-line
     WeatherCard,
     Loading,
+    // eslint-disable-next-line
     SearchBar,
   },
   data() {
@@ -41,30 +47,29 @@ export default {
       weatherData: {},
       someProp: false,
       rotation: 0,
-      cityKey: ''
+      cityName: 'Dordrecht'
     };
   },
   async created() {
     //when the app is created, call the apis
-    this.weatherData = await getWeatherData(this.cityKey);
-    this.locationData = await getLocationData(this.cityKey);
+    document.cookie != '' ? this.cityName = document.cookie.split('=')[1] : null
+    this.weatherData = await getWeatherData(this.cityName);
     this.isLoading = false;
   },
   methods: {
-    //update the city when the searchbar emits 'update-city-key'
-    updateCityKey (key) {
-      this.cityKey = key
-    }
+    //update the city when the searchbar emits 'update-city-name'
+    updateCityName(name) {
+      this.cityName = name;
+    },
   },
   //watch for the city key to change and call the apis again
   watch: {
-    async cityKey () {
+    async cityName() {
       this.isLoading = true;
-      this.weatherData = await getWeatherData(this.cityKey);
-      this.locationData = await getLocationData(this.cityKey);
+      this.weatherData = await getWeatherData(this.cityName);
       this.isLoading = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

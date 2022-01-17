@@ -1,37 +1,34 @@
-const currentWeatherUrl =
-  "http://dataservice.accuweather.com/currentconditions/v1/";
-const currentLocationUrl =
-  "http://dataservice.accuweather.com/locations/v1/";
-const secretKey = "GX6Bwh4YFRyT2VOGbHbwbRiDp98uVCi5";
+const currentWeatherUrl = "http://api.weatherapi.com/v1/current.json";
+const secretKey = "8b160acaafce4da49ff153744221701";
 
 import * as axios from 'axios'
-import {locationData, weatherData} from '../data/mockData.js'
+import {weatherData} from '../data/mockData.js'
 
+//creating a date in the future
+const today = new Date();
+const tomorrow = new Date();
+tomorrow.setDate(today.getDate()+1);
+console.log(tomorrow)
+
+//set to false to call from local object instead of API
 const useMockData = false
-export const getWeatherData = async (key) => {
-    if (!useMockData) {
-       try {
-        const response = await axios.get(`${currentWeatherUrl}${key}?apikey=${secretKey}&details=true`);
-        return response.data[0]
-       }
-       catch (error) {
-         console.log(error)
-       }
-    }
-    console.log('Mock data used for weather')
-    return weatherData [0]
-  };
 
-  export const getLocationData = async (key) => {
+//API call
+export const getWeatherData = async (cityName) => {
+
+  //palce cookie to remember selected city name
+    document.cookie = `cityName=${cityName}; SameSite=None; secure; expires=Sun, 16 Jul 3567 06:23:41 GMT; domain=localhost`;
+
     if (!useMockData) {
        try {
-        const response = await axios.get(`${currentLocationUrl}${key}?apikey=${secretKey}&language=en-us&details=true`);
+        const response = await axios.get(`${currentWeatherUrl}?key=${secretKey}&q=${cityName}&aqi=no`);
         return response.data
        }
        catch (error) {
          console.log(error)
+         return {}
        }
     }
-    console.log('Mock data used for location')
-    return locationData
+    console.log('Mock data used for weather')
+    return weatherData
   };

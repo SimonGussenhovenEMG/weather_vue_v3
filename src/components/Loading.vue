@@ -1,9 +1,11 @@
 <template>
-    <div class="loading">
-        <h3>Loading...</h3>
+  <div class="loading mt-5">
+    <div class="spinner-border text-light" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
+  </div>
 </template>
 
 <script>
-    export default {}
+export default {};
 </script>
