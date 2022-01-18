@@ -54,7 +54,7 @@ export default {
     //when the app is created, call the apis
     document.cookie != '' ? this.cityName = document.cookie.split('=')[1] : null
     this.weatherData = await getWeatherData(this.cityName);
-    this.isLoading = false;
+    this.isLoading = false
   },
   methods: {
     //update the city when the searchbar emits 'update-city-name'
